@@ -50,5 +50,5 @@
 ;;
 ;; (add-hook 'window-setup-hook 'spacemacs/toggle-gui-elements-off)
 ;; (add-hook 'tty-setup-hook 'spacemacs/toggle-gui-elements-off)
-
+(setq evil-want-keybinding nil)
 (setq byte-compile-warnings '(cl-functions))
