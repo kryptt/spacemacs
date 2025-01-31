@@ -1,0 +1,22 @@
+#+TITLE: Unison layer
+
+#+TAGS: general|layer|functiona|distributed|cloud|programming
+
+* Table of Contents :TOC_5_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#layer-installation][Layer Installation]]
+
+* Description
+This layer adds support for the Unison Programming system to Spacemacs.
+
+** Features:
+- Syntax highlighting
+- Support for language backend using LSP and ucm
+- Treemacs support
+
+* Layer Installation
+To use this configuration layer, add it yo your =~/.spacemacs=. You will need to
+add =scala= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+You will also need to have installed and running [[https://www.unison-lang.org/docs/quickstart/][=ucm=]].
