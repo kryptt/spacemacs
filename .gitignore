@@ -72,6 +72,9 @@ url/*
 var/
 workspace
 undo/*
+.spacemacs.env
+my-monaspace-theme.el
+projects
 
 # Private directory
 /doc/COMMUNITY.org
