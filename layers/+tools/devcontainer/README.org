@@ -1,0 +1,82 @@
+#+TITLE: Devcontainer layer
+
+#+TAGS: layer|tool
+
+* Table of Contents                     :TOC_5_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+  - [[#layer][Layer]]
+  - [[#dependencies][Dependencies]]
+- [[#configuration][Configuration]]
+- [[#key-bindings][Key bindings]]
+
+* Description
+This layer adds support for working with [[https://containers.dev/][devcontainers]] using
+[[https://github.com/johannes-mueller/devcontainer.el][devcontainer.el]].
+
+** Features:
+- Start, restart, rebuild, and kill devcontainers
+- Execute commands inside the container (batch or interactive)
+- Open a shell inside the container
+- Edit files inside the container via =TRAMP=
+- Transparent compilation: =devcontainer-mode= intercepts =compile= and runs
+  commands inside the container automatically
+- Docker and Podman runtime support
+
+* Install
+** Layer
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =devcontainer= to the existing =dotspacemacs-configuration-layers= list in
+this file.
+
+** Dependencies
+You will need the [[https://github.com/devcontainers/cli][@devcontainers/cli]] tool:
+
+#+BEGIN_SRC sh
+  npm install -g @devcontainers/cli
+#+END_SRC
+
+And a container runtime: [[https://www.docker.com/][Docker]] or [[https://podman.io/][Podman]].
+
+* Configuration
+Configuration is done via the upstream package's =defcustom= variables in
+=dotspacemacs/user-config=. For example:
+
+#+BEGIN_SRC emacs-lisp
+  (defun dotspacemacs/user-config ()
+    ;; Use podman instead of docker
+    (setq devcontainer-engine 'podman)
+
+    ;; Run grep on the host, not inside the container
+    (setq devcontainer-execute-outside-container '("grep"))
+
+    ;; Use vterm for container terminals
+    (setq devcontainer-term-function 'vterm))
+#+END_SRC
+
+Available options:
+
+| Variable                                 | Description                              |
+|------------------------------------------+------------------------------------------|
+| =devcontainer-engine=                    | Container runtime: ='docker= or ='podman= |
+| =devcontainer-execute-outside-container= | Programs to run on the host              |
+| =devcontainer-term-shell=               | Shell for container terminals            |
+| =devcontainer-term-function=            | Terminal emulator function               |
+| =devcontainer-post-startup-hook=        | Hook called after container starts       |
+| =devcontainer-startup-secrets-file=     | Secrets file passed to CLI               |
+| =devcontainer-apply-customization=      | Apply =devcontainer.json= customizations |
+
+* Key bindings
+
+| Key binding   | Description                          |
+|---------------+--------------------------------------|
+| ~SPC C-d u~   | Start the devcontainer               |
+| ~SPC C-d r~   | Restart the devcontainer             |
+| ~SPC C-d R~   | Rebuild and restart from scratch     |
+| ~SPC C-d k~   | Kill the container                   |
+| ~SPC C-d x~   | Execute a command in the container   |
+| ~SPC C-d X~   | Execute an interactive command       |
+| ~SPC C-d t~   | Open a shell in the container        |
+| ~SPC C-d d~   | Open dired inside the container      |
+| ~SPC C-d m~   | Toggle =devcontainer-mode=           |
